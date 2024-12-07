@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Выбор за тобой</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: 2.5vh;
+        }
+        div {
+            display: flex;
+            justify-content: center;
+        }
+        ul {
+            list-style: none;
+            margin: 50px;
+        }
+        li {
+            margin: 4vh;
+        }
+        .flowers {
+            flex-direction: row;
+            align-items: center;
+        }
+        img {
+            margin: auto auto;
+            text-align: center;
+        }
+        button {
+            border: none;
+            background-color: white;
+            transition-duration: 0.4s;
+        }
+        button:hover {
+            opacity: 0.5;
+            box-shadow: 2px black solid;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>В честь твоего пришествия, я бы хотел предложить букетик, но не знал какой выбрать, так что оставил выбор за тобой.</h1>
+    </div>
+    <div class="flowers">
+        <ul>
+            <li>
+                <button id="Peony">Пионы</button>
+            </li>
+            <li>
+                <button id="Rose">Розы</button>
+            </li>
+            <li>
+                <button id="Lilies">Лилии</button>
+            </li>
+            <li>
+                <button id="Tulips">Тюльпаны</button>
+            </li>
+            <li>
+                <button id="Hydrangea">Гортензия</button>
+            </li>
+            <li>
+                <button id="BEST">У меня на них аллергия^-^</button>
+            </li>
+        </ul>
+    </div>
+    <script>
+        const peony = document.getElementById("Peony")
+        const rose = document.getElementById("Rose")
+        const lilies = document.getElementById("Lilies")
+        const tulips = document.getElementById("Tulips")
+        const hydrangea = document.getElementById("Hydrangea")
+        const btn = document.getElementById("BEST")
+        btn.addEventListener("click", function(event) {
+            document.getElementsByClassName("flowers")[0].innerHTML = "<img style='max-height:90vh;'src=''><a href='sum3.html'><button>(дальше)</button></a>"
+            document.getElementsByTagName("h1")[0].textContent = "Ну тогда.. не знаю зачем, но вот тебе целая Вселенная"
+            document.body.style.backgroundColor = "purple"
+        })
+        peony.addEventListener("click", function(event) {
+            document.getElementsByClassName("flowers")[0].innerHTML = "<img style='max-height:90vh;'src='peony.png'><a href='sum3.html'><button>(дальше)</button></a>"
+            document.getElementsByTagName("h1")[0].textContent = "Вот тебе Пионы, их немного, но все отдуши"
+        })
+        rose.addEventListener("click", function(event) {
+            document.getElementsByClassName("flowers")[0].innerHTML = "<img style='max-height:90vh;'src='roses.png'><a href='sum3.html'><button id='continue'>(дальше)</button></a>"
+            document.getElementsByTagName("h1")[0].textContent = "Розы по заказу!"
+            document.body.style.backgroundColor = "#f6f6f6"
+            document.getElementById("continue").style.backgroundColor = "#f6f6f6"
+        })
+        lilies.addEventListener("click", function(event) {
+            document.getElementsByClassName("flowers")[0].innerHTML = "<img style='max-height:92.75vh;'src='lilies.png'><a href='sum3.html'><button id='continue'>(дальше)</button></a>"
+            document.getElementsByTagName("h1")[0].textContent = "Лилии, хороший выбор!;)"
+        })
+        tulips.addEventListener("click", function(event) {
+            document.getElementsByClassName("flowers")[0].innerHTML = "<img style='max-height:90vh;'src='tulips.jpg'><a href='sum3.html'><button id='continue'>(дальше)</button></a>"
+            document.getElementsByTagName("h1")[0].textContent = "Понятно, почему в Голландии от них сходили с ума"
+            document.body.style.backgroundColor = "#fef3bd"
+            document.getElementById("continue").style.backgroundColor = "#fef3bd"
+        })
+        hydrangea.addEventListener("click", function(event) {
+            document.getElementsByClassName("flowers")[0].innerHTML = "<img style='max-height:90vh;'src='hydrangea.jpg'><a href='sum3.html'><button id='continue'>(дальше)</button></a>"
+            document.getElementsByTagName("h1")[0].textContent = "Бокал прекрасного вина с не менее прекрасными цветами"    
+        })
+
+    </script>
+</body>
+</html>
