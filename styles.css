@@ -1,0 +1,66 @@
+
+.main {
+    display: flex;
+    justify-content: center;
+    margin: 15px;
+}
+h1 {
+    margin: 10%;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-align: center;
+}
+.btn {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    padding: 15px;
+    margin: 25px;
+    transition-duration: 0.33s;
+    transition-timing-function:ease-in-out;
+  }
+  button {
+    position: relative;
+    background-color: white;
+    font-size: 16px;
+    color: black;
+    padding: 15px;
+    width: 200px;
+    text-align: center;
+    transition-duration: 0.4s;
+    text-decoration: none;
+    overflow: hidden;
+    cursor: pointer;
+  }
+    
+#btn1:hover {
+    background-color: lightgreen; 
+    color: gray;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  }
+#btn2:hover {
+    background-color: gray;
+    color: white;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+#btn2:hover:before{
+  content: "Окей, давай!"
+}
+#btn2:hover span {
+  display:none
+}
+button:after {
+    content: "";
+    background: #f1f1f1;
+    display: block;
+    position: absolute;
+    padding-top: 300%;
+    padding-left: 350%;
+    margin-left: -20px !important;
+    margin-top: -120%;
+    opacity: 0;
+    transition: all 0.8s
+  }
+button:active:after {
+    padding: 0;
+    margin: 0;
+    opacity: 1;
+    transition: 0s
+  }
