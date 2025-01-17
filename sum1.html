@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ждем твое имя..</title>
+    <style>
+        .Input {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            margin: 5% auto;
+            max-width: 500px;
+            height: 500px;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        input {
+            margin: 10px;
+            max-width: 200px;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            z-index: 1;
+        }
+
+        #btn {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            padding: 15px;
+            margin: 25px;
+            transition-duration: 0.33s;
+            transition-timing-function: ease-in-out;
+            position: relative;
+            background-color: white;
+            font-size: 1.5vh;
+            color: black;
+            padding: 10px;
+            width: 150px;
+            text-align: center;
+            transition-duration: 0.4s;
+            text-decoration: none;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        #btn:hover {
+            background-color: black;
+            color: white;
+            box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        #btn:after {
+            content: "";
+            background: #f1f1f1;
+            display: block;
+            position: absolute;
+            padding-top: 300%;
+            padding-left: 350%;
+            margin-left: -20px !important;
+            margin-top: -120%;
+            opacity: 0;
+            transition: all 0.8s
+        }
+
+        #btn:active:after {
+            padding: 0;
+            margin: 0;
+            opacity: 1;
+            transition: 0s
+        }
+
+        progress {
+            width: 100%;
+            height: 20px;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        progress.visible {
+            opacity: 0.8;
+        }
+
+        progress::-webkit-progress-bar {
+            background-color: #ffe8e8; /* Задний фон */
+            border-radius: 15px;
+        }
+
+        progress::-webkit-progress-value {
+            background-color: #ad1313; /* Цвет заполненной части */
+            border-radius: 15px;
+        }
+
+        progress::-moz-progress-bar {
+            background-color: #ad1313; /* Цвет для Firefox */
+        }
+
+        progress.max-reached::-webkit-progress-value {
+            background-color: lightgreen; /* Красный */
+        }
+
+        progress.max-reached::-moz-progress-bar {
+            background-color: lightgreen; /* Красный */
+        }
+    </style>
+    <link rel="icon" href="icon1.ico">
+</head>
+<body>
+    <div class="Input">
+        <h1>Так-с, твое имя?</h1>
+        <input type="text" placeholder="Моё имя" id="Name">
+        <progress id="progressBar" value="0" max="100"></progress>
+        <input type="submit" value="вот моё имя" id="btn">
+    </div>
+    <script>
+        function randomChoice(arr) {
+            return arr[Math.floor(arr.length * Math.random())];
+        }
+
+        const answers = ["Очень смешно. А если без шуток?", "Я один считаю это неуместным?", "Как неуважительно ко мне;(", "Может ты напишешь уже?", "Мы все ждем твоего ответа!"];
+        const name_answers = ["Точно?", "Я ждал другого человека..", "Клянись, что не врешь! Даю еще один шанс.", "Эх, по веб-камере все видно же"];
+        
+        const btn = document.getElementById("btn");
+        const nameInput = document.getElementById("Name");
+        const progressBar = document.getElementById('progressBar');
+        const targetName = 'айханым';
+
+        let animationFrame; 
+
+        btn.addEventListener("click", function(event) {
+            if (progressBar.value == 100) {
+                alert("Ваау! Не ожидал здесь тебя увидеть. Это же надо все менять под чистую, и главное срочно!");
+                window.open("sum2.html", "_blank");
+            }
+            else if (!isNaN(nameInput.value)) {
+                const answer = randomChoice(answers);
+                alert(answer);
+            }
+            else {
+                const answer = randomChoice(name_answers);
+                alert(answer);
+            }
+        });
+
+        nameInput.addEventListener('focus', () => {
+            progressBar.classList.add('visible');
+        });
+
+        nameInput.addEventListener('blur', () => {
+            if (nameInput.value.trim() === '') {
+                resetProgressBar();
+            }
+        });
+
+        nameInput.addEventListener('input', () => {
+            const userInput = nameInput.value;
+            let matchCount = 0;
+
+            for (let i = 0; i < userInput.length; i++) {
+                if (userInput[i].toLowerCase() === targetName[i] || userInput[i].toLowerCase() === 'fq[fysv'[i]) {
+                    matchCount++;
+                } else {
+                    break;
+                }
+            }
+
+            const progressPercentage = (matchCount / targetName.length) * 100;
+            animateProgressBar(progressPercentage);
+        });
+
+        function animateProgressBar(targetValue) {
+            cancelAnimationFrame(animationFrame);
+            const currentValue = progressBar.value;
+            const step = (targetValue - currentValue) / 10;
+            let progress = currentValue;
+
+            function stepAnimation() {
+                progress += step;
+                if ((step > 0 && progress >= targetValue) || (step < 0 && progress <= targetValue)) {
+                    progressBar.value = targetValue;
+                    if (targetValue >= 100) {
+                        progressBar.classList.add('max-reached'); // Меняем цвет на красный при достижении 100%
+                    } else {
+                        progressBar.classList.remove('max-reached'); // Возвращаем цвет обратно, если значение меньше 100
+                    }
+                } else {
+                    progressBar.value = progress;
+                    animationFrame = requestAnimationFrame(stepAnimation);
+                }
+            }
+
+            stepAnimation();
+        }
+
+        function resetProgressBar() {
+            animateProgressBar(0);
+            progressBar.classList.remove('visible');
+            progressBar.classList.remove('max-reached'); // Убираем красный цвет при сбросе
+        }
+        
+        let typeImages = [
+        'type1.png',
+        'type2.png',
+        'type3.png'
+    ];
+        function createType(x, y) {
+            const type = document.createElement('img');
+            type.classList.add('type');
+        
+            const randomImage = typeImages[Math.floor(Math.random() * typeImages.length)];
+            type.src = randomImage;
+        
+            const size = Math.random() * 20;
+            type.style.width = `${size}px`;
+            type.style.height = 'auto';
+        
+            type.style.position = 'absolute'; // Убедитесь, что позиция абсолютная
+            type.style.left = `${x - size / 2}px`;
+            type.style.top = `${y - size / 2}px`;
+        
+            const rotation = Math.random() * 360;
+            type.style.transform = `rotate(${rotation}deg)`;
+        
+            document.body.appendChild(type);
+        
+            setTimeout(() => {
+                type.style.transition = 'opacity 1s, transform 1s';
+                type.style.opacity = '0';
+                type.style.transform += ' translateY(-20px) scale(0.5)';
+        
+                type.addEventListener('transitionend', () => type.remove());
+            }, 10);
+        }
+        document.addEventListener('mousemove', function (event) {
+            const target = event.target;
+            if (target.tagName.toLowerCase() === 'button' || target.tagName.toLowerCase() === 'input[type="text"]') {
+                return; 
+            }
+        
+            createType(event.pageX, event.pageY);
+        });
+    </script>
+</body>
+</html>
