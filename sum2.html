@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Выбор за тобой</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: 2.5vh;
+        }
+        div {
+            display: flex;
+            justify-content: center;
+        }
+        ul {
+            list-style: none;
+            margin: 50px;
+        }
+        li {
+            margin: 4vh;
+        }
+        .flowers {
+            flex-direction: row;
+            align-items: center;
+        }
+        img {
+            margin: auto auto;
+            text-align: center;
+        }
+        button {
+            border: none;
+            background-color: transparent;
+            color: black;
+            transition-duration: 0.5s;
+        }
+        button:hover {
+            opacity: 0.7;
+            background-color: rgb(100, 100, 100);
+            color: rgb(255, 255, 255);
+            cursor: pointer;
+            box-shadow: 0 15px 20px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+        .petal {
+            position: absolute;
+            pointer-events: none;
+            opacity: 0.8;
+            transform-origin: center;
+        }
+        li {
+            position: relative; /* Чтобы текст был выше лепестков */
+            z-index: 1; /* Устанавливает текст выше лепестков */
+        }
+    </style>
+    <link rel="icon" href="flowers.ico">
+</head>
+<body>
+    <div>
+        <h1>В честь твоего пришествия, я бы хотел предложить букетик, но не знал какой выбрать, так что оставляю выбор за тобой.</h1>
+    </div>
+    <div class="flowers">
+        <ul>
+            <li>
+                <button id="Peony">Пионы</button>
+            </li>
+            <li>
+                <button id="Rose">Розы</button>
+            </li>
+            <li>
+                <button id="Lilies">Лилии</button>
+            </li>
+            <li>
+                <button id="Tulips">Тюльпаны</button>
+            </li>
+            <li>
+                <button id="Hydrangea">Гортензия</button>
+            </li>
+            <li>
+                <button id="BEST">Другое..</button>
+            </li>
+        </ul>
+    </div>
+    <script>
+        const peony = document.getElementById("Peony")
+        const rose = document.getElementById("Rose")
+        const lilies = document.getElementById("Lilies")
+        const tulips = document.getElementById("Tulips")
+        const hydrangea = document.getElementById("Hydrangea")
+        const btn = document.getElementById("BEST")
+        let petalImages = [
+        'petal1.png',
+        'petal2.png',
+        'petal3.png'
+    ];
+        function createPetal(x, y) {
+            const petal = document.createElement('img');
+            petal.classList.add('petal');
+        
+            const randomImage = petalImages[Math.floor(Math.random() * petalImages.length)];
+            petal.src = randomImage;
+        
+            const size = Math.random() * 20;
+            petal.style.width = `${size}px`;
+            petal.style.height = 'auto';
+        
+            petal.style.position = 'absolute'; // Убедитесь, что позиция абсолютная
+            petal.style.left = `${x - size / 2}px`;
+            petal.style.top = `${y - size / 2}px`;
+        
+            const rotation = Math.random() * 360;
+            petal.style.transform = `rotate(${rotation}deg)`;
+        
+            document.body.appendChild(petal);
+        
+            setTimeout(() => {
+                petal.style.transition = 'opacity 1s, transform 1s';
+                petal.style.opacity = '0';
+                petal.style.transform += ' translateY(-20px) scale(0.5)';
+        
+                petal.addEventListener('transitionend', () => petal.remove());
+            }, 10);
+        }
+        document.addEventListener('mousemove', function (event) {
+            // Проверяем, наведен ли курсор на элемент <li>
+            const target = event.target;
+            if (target.tagName.toLowerCase() === 'li') {
+                return; // Не создаём лепестки над элементами <li>
+            }
+        
+            createPetal(event.pageX, event.pageY);
+        });
+        btn.addEventListener("click", function(event) {
+            document.getElementsByClassName("flowers")[0].innerHTML = "<img style='height:30hv' src='cosmos.png'><a href='text.html'><button>-></button></a>"
+            document.getElementsByTagName("h1")[0].textContent = "Ну тогда.. не знаю зачем, но вот тебе целая Вселенная ;)"
+            petalImages = ['sparkle.png', 'sparkle1.png', 'sparkle2.png']
+        })
+        peony.addEventListener("click", function(event) {
+            document.getElementsByClassName("flowers")[0].innerHTML = "<img style='max-height:90vh;'src='peony.png'><a href='text.html'><button id='continue'>-></button></a>"
+            document.getElementsByTagName("h1")[0].textContent = "Вот тебе Пионы, их немного, но все отдуши ^-^"
+            document.getElementById("continue").style.backgroundColor = "#f6f6f6"
+        })
+        rose.addEventListener("click", function(event) {
+            document.getElementsByClassName("flowers")[0].innerHTML = "<img style='max-height:90vh;'src='roses.png'><a href='text.html'><button id='continue'>-></button></a>"
+            document.getElementsByTagName("h1")[0].textContent = "Розы по заказу! Специально для вас ^-^"
+            document.body.style.backgroundColor = "#f6f6f6"
+            document.getElementById("continue").onmouseover.style.backgroundColor = "#f6f6f6"
+            document.getElementById("continue").onmouseover.style.color = "black"
+        })
+        lilies.addEventListener("click", function(event) {
+            document.getElementsByClassName("flowers")[0].innerHTML = "<img style='max-height:92.75vh;'src='lilies.png'><a href='text.html'><button id='continue'>-></button></a>"
+            document.getElementsByTagName("h1")[0].textContent = "Лилии, отличный выбор, без сомнений! ^-^"
+        })
+        tulips.addEventListener("click", function(event) {
+            document.getElementsByClassName("flowers")[0].innerHTML = "<img style='max-height:90vh;'src='tulips.jpg'id='image'><a href='text.html'><button id='continue'>-></button></a>"
+            document.getElementsByTagName("h1")[0].textContent = "Понятно, почему в Голландии от них сходили с ума, ведь ты выбираешь именно их! ^-^"
+            document.body.style.backgroundColor = '#fef3bd'
+            const cont = document.getElementById('continue')
+            cont.style.backgroundColor = 'transparent'
+            cont.addEventListener('mouseover', function(event) {
+                cont.style.backgroundColor = '#fef3bd'
+                cont.style.color = 'black'
+            })
+        })
+        hydrangea.addEventListener("click", function(event) {
+            document.getElementsByClassName("flowers")[0].innerHTML = "<img style='max-height:90vh;'src='hydrangea.jpg'><a href='text.html'><button id='continue'>-></button></a>"
+            document.getElementsByTagName("h1")[0].textContent = "Бокал прекрасного вина с не менее прекрасными цветами, что может быть лучше? ^-^"    
+        })
+        document.addEventListener('mousemove', function (event) {
+            createpetal(event.pageX, event.pageY);
+        });
+        
+    </script>
+</body>
+</html>
